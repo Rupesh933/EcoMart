@@ -1,117 +1,302 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-conten padding-y bg">
+<link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css" />
 
+<!-- ========================= DASHBOARD SECTION ========================= -->
+<section class="dashboard-section">
     <div class="container">
-        <div class="row">
-            <aside class="col-md-3">
-                <!--   SIDEBAR   -->
-                <ul class="list-group">
-                    <a class="list-group-item active" href="#"> My order history </a>
-                    <a class="list-group-item" href="#"> Transactions </a>
-                    <a class="list-group-item" href="#"> Return and refunds </a>
-                    <a class="list-group-item" href="#">Settings </a>
-                    <a class="list-group-item" href="#"> My Selling Items </a>
-                    <a class="list-group-item" href="#"> Received orders </a>
-                </ul>
-                <br>
-                <a class="btn btn-light btn-block" href="#"> <i class="fa fa-power-off"></i> <span class="text">Log
-                        out</span> </a>
-                <!--   SIDEBAR .//END   -->
-            </aside>
-            <main class="col-md-9">
-                <article class="card">
-                    <header class="card-header">
-                        <strong class="d-inline-block mr-3">Order ID: 6123456789</strong>
-                        <span>Order Date: 16 December 2018</span>
-                    </header>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h6 class="text-muted">Delivery to</h6>
-                                <p>Michael Jackson <br>
-                                    Phone +1234567890 Email: myname@pixsellz.com <br>
-                                    Location: Home number, Building name, Street 123, Tashkent, UZB <br>
-                                    P.O. Box: 100123
-                                </p>
+
+        <!-- Dashboard Header -->
+        <div class="dashboard-header dash-animate">
+            <h1 class="dash-greeting">Welcome back, <span>Explorer</span></h1>
+            <p class="dash-subtitle">Here is what is happening with your orders today.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="dash-stats-row">
+            <div class="dash-stat-card dash-animate dash-animate-delay-1">
+                <div class="stat-icon accent">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="dash-stat-card dash-animate dash-animate-delay-2">
+                <div class="stat-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-value">8</div>
+                <div class="stat-label">Delivered</div>
+            </div>
+            <div class="dash-stat-card dash-animate dash-animate-delay-3">
+                <div class="stat-icon warning">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="stat-value">3</div>
+                <div class="stat-label">In Transit</div>
+            </div>
+            <div class="dash-stat-card dash-animate dash-animate-delay-4">
+                <div class="stat-icon info">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="stat-value" data-prefix="$">456</div>
+                <div class="stat-label">Total Spent</div>
+            </div>
+        </div>
+
+        <!-- Dashboard Layout -->
+        <div class="dashboard-layout">
+
+            {% include 'includes/dashboard_sidebar.html' %}
+
+            <main class="dash-main">
+                <article class="dash-order-card dash-animate dash-animate-delay-3">
+                    <!-- Order Header -->
+                    <div class="dash-order-header">
+                        <div class="dash-order-id">
+                            <i class="fas fa-receipt dash-accent-icon"></i>
+                            Order <span class="order-hash">#6123456789</span>
+                        </div>
+                        <div class="dash-order-meta">
+                            <div class="dash-order-date">
+                                <i class="far fa-calendar-alt"></i>
+                                16 December 2018
                             </div>
-                            <div class="col-md-4">
-                                <h6 class="text-muted">Payment</h6>
-                                <span class="text-success">
-                                    <i class="fab fa-lg fa-cc-visa"></i>
-                                    Visa **** 4216
-                                </span>
-                                <p>Subtotal: $356 <br>
-                                    Shipping fee: $56 <br>
-                                    <span class="b">Total: $456 </span>
-                                </p>
+                            <div class="dash-order-status processing">
+                                <span class="status-dot"></span>
+                                Processing
                             </div>
-                        </div> <!-- row.// -->
-                    </div> <!-- card-body .// -->
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <tr>
-                                <td width="65">
-                                    <img src="../images/items/1.jpg" class="img-xs border">
-                                </td>
-                                <td>
-                                    <p class="title mb-0">Product name goes here </p>
-                                    <var class="price text-muted">USD 145</var>
-                                </td>
-                                <td> Seller <br> Nike clothing </td>
-                                <td width="250"> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#"
-                                        class="btn btn-light"> Details </a> </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../images/items/2.jpg" class="img-xs border">
-                                </td>
-                                <td>
-                                    <p class="title mb-0">Another name goes here </p>
-                                    <var class="price text-muted">USD 15</var>
-                                </td>
-                                <td> Seller <br> ABC shop </td>
-                                <td> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#"
-                                        class="btn btn-light"> Details </a> </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../images/items/3.jpg" class="img-xs border">
-                                </td>
-                                <td>
-                                    <p class="title mb-0">The name of the product goes here </p>
-                                    <var class="price text-muted">USD 145</var>
-                                </td>
-                                <td> Seller <br> Wallmart </td>
-                                <td> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#"
-                                        class="btn btn-light"> Details </a> </td>
-                            </tr>
-                        </table>
-                    </div> <!-- table-responsive .end// -->
-                </article> <!-- order-group.// -->
+                        </div>
+                    </div>
+
+                    <!-- Order Body -->
+                    <div class="dash-order-body">
+                        <div class="dash-order-details">
+                            <!-- Delivery Info -->
+                            <div class="dash-detail-block">
+                                <div class="dash-detail-title">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Delivery to
+                                </div>
+                                <div class="dash-detail-name">Michael Jackson</div>
+                                <div class="dash-detail-info">
+                                    <div class="info-row">
+                                        <i class="fas fa-phone"></i>
+                                        <span>+1234567890</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <i class="fas fa-envelope"></i>
+                                        <span>myname@pixsellz.com</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <i class="fas fa-home"></i>
+                                        <span>Home number, Building name, Street 123, Tashkent, UZB</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <i class="fas fa-mail-bulk"></i>
+                                        <span>P.O. Box: 100123</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Info -->
+                            <div class="dash-detail-block">
+                                <div class="dash-detail-title">
+                                    <i class="fas fa-credit-card"></i>
+                                    Payment
+                                </div>
+                                <div class="dash-payment-card">
+                                    <i class="fab fa-lg fa-cc-visa card-icon"></i>
+                                    <div>
+                                        <div class="card-info">Visa</div>
+                                        <div class="card-number">**** **** **** 4216</div>
+                                    </div>
+                                </div>
+                                <ul class="dash-price-summary">
+                                    <li>
+                                        <span>Subtotal</span>
+                                        <span class="amount">$356</span>
+                                    </li>
+                                    <li>
+                                        <span>Shipping fee</span>
+                                        <span class="amount">$56</span>
+                                    </li>
+                                    <li>
+                                        <span>Total</span>
+                                        <span class="amount">$456</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products List -->
+                    <div class="dash-products-section">
+                        <div class="dash-products-header">
+                            <div class="dash-products-title">
+                                <i class="fas fa-box"></i>
+                                Order Items
+                                <span class="item-count">3 items</span>
+                            </div>
+                        </div>
+
+                        <!-- Product 1 -->
+                        <div class="dash-product-item">
+                            <img src="../images/items/1.jpg" class="dash-product-img" alt="Product">
+                            <div class="dash-product-details">
+                                <div class="dash-product-name">Product name goes here</div>
+                                <div class="dash-product-price">USD 145</div>
+                            </div>
+                            <div class="dash-product-seller">
+                                <div class="seller-label">Seller</div>
+                                <div class="seller-name">Nike clothing</div>
+                            </div>
+                            <div class="dash-product-actions">
+                                <a href="#" class="dash-btn dash-btn-primary">
+                                    <i class="fas fa-map-marker-alt"></i> Track order
+                                </a>
+                                <a href="#" class="dash-btn dash-btn-ghost">
+                                    <i class="fas fa-eye"></i> Details
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="dash-product-item">
+                            <img src="../images/items/2.jpg" class="dash-product-img" alt="Product">
+                            <div class="dash-product-details">
+                                <div class="dash-product-name">Another name goes here</div>
+                                <div class="dash-product-price">USD 15</div>
+                            </div>
+                            <div class="dash-product-seller">
+                                <div class="seller-label">Seller</div>
+                                <div class="seller-name">ABC shop</div>
+                            </div>
+                            <div class="dash-product-actions">
+                                <a href="#" class="dash-btn dash-btn-primary">
+                                    <i class="fas fa-map-marker-alt"></i> Track order
+                                </a>
+                                <a href="#" class="dash-btn dash-btn-ghost">
+                                    <i class="fas fa-eye"></i> Details
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="dash-product-item">
+                            <img src="../images/items/3.jpg" class="dash-product-img" alt="Product">
+                            <div class="dash-product-details">
+                                <div class="dash-product-name">The name of the product goes here</div>
+                                <div class="dash-product-price">USD 145</div>
+                            </div>
+                            <div class="dash-product-seller">
+                                <div class="seller-label">Seller</div>
+                                <div class="seller-name">Wallmart</div>
+                            </div>
+                            <div class="dash-product-actions">
+                                <a href="#" class="dash-btn dash-btn-primary">
+                                    <i class="fas fa-map-marker-alt"></i> Track order
+                                </a>
+                                <a href="#" class="dash-btn dash-btn-ghost">
+                                    <i class="fas fa-eye"></i> Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </main>
-        </div> <!-- row.// -->
+        </div>
     </div>
-
-
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 
 <!-- ========================= FOOTER ========================= -->
-<footer class="section-footer border-top padding-y">
+<footer class="dash-footer">
     <div class="container">
-        <p class="float-md-right">
-            &copy Copyright 2019 All rights reserved
+        <p class="dash-footer-text">
+            &copy; Copyright 2019 All rights reserved
         </p>
-        <p>
+        <p class="dash-footer-text">
             <a href="#">Terms and conditions</a>
         </p>
-    </div><!-- //container -->
+    </div>
 </footer>
 <!-- ========================= FOOTER END // ========================= -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer for scroll animations
+    var observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.dash-animate').forEach(function(el) {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+
+    // Hover ripple effect on stat cards
+    document.querySelectorAll('.dash-stat-card').forEach(function(card) {
+        card.addEventListener('mouseenter', function(e) {
+            var rect = this.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var ripple = document.createElement('div');
+            ripple.className = 'stat-ripple';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            this.appendChild(ripple);
+            requestAnimationFrame(function() {
+                ripple.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+            setTimeout(function() { ripple.remove(); }, 600);
+        });
+    });
+
+    // Counter animation for stat values
+    document.querySelectorAll('.dash-stat-card .stat-value').forEach(function(el) {
+        var text = el.textContent.trim();
+        var prefix = el.getAttribute('data-prefix') || '';
+        var numMatch = text.match(/[\d]+/);
+        if (numMatch) {
+            var target = parseInt(numMatch[0]);
+            var current = 0;
+            var increment = Math.ceil(target / 30);
+            var timer = setInterval(function() {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.textContent = prefix + current;
+            }, 40);
+        }
+    });
+
+    // Active sidebar nav item
+    document.querySelectorAll('.dash-sidebar-nav a').forEach(function(link) {
+        link.addEventListener('click', function() {
+            document.querySelectorAll('.dash-sidebar-nav a').forEach(function(l) {
+                l.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+});
+</script>
 
 {% endblock %}

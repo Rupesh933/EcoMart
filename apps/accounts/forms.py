@@ -1,3 +1,4 @@
+
 from django.core.exceptions import ValidationError
 from django import forms
 from .models import Account
@@ -18,6 +19,13 @@ class RegisterationForm(forms.ModelForm):
         })
     )
 
+    phone_number = forms.CharField(
+        widget=forms.TextInput(attrs={
+            "type": "tel",
+            "placeholder": "Enter Your Phone Number"
+        })
+    )
+
 
     
     class Meta:
@@ -30,7 +38,7 @@ class RegisterationForm(forms.ModelForm):
         self.fields["first_name"].widget.attrs['placeholder'] = "Enter First Name"
         self.fields["last_name"].widget.attrs["placeholder"] = "Enter Last Name"
         self.fields['email'].widget.attrs["placeholder"] = "Enter Your Email"
-        self.fields["phone_number"].widget.attrs["placeholder"] = "Enter Your Phone Number"
+        
         for field in self.fields:
             self.fields[field].widget.attrs["class"] = "form-control"
 

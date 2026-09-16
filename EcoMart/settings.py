@@ -77,6 +77,12 @@ WSGI_APPLICATION = "EcoMart.wsgi.application"
 
 AUTH_USER_MODEL = "accounts.Account"
 
+AUTHENTICATION_BACKENDS = [
+    'apps.accounts.backends.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
@@ -136,8 +142,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
-    messages.INFO: "",
-    50: "critical",
+    messages.ERROR: "danger",
 }
 
 

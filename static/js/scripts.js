@@ -59,6 +59,18 @@ $(document).ready(function () {
 // jquery end
 
 
+// Auto-dismiss alert messages after 5 seconds with smooth fade
 setTimeout(function () {
-    $('#message').alert('close');
-}, 3000);
+    var alerts = document.querySelectorAll('#alert-messages, #message');
+    alerts.forEach(function (el) {
+        if (el) {
+            el.style.transition = 'opacity 0.6s ease';
+            el.style.opacity = '0';
+            setTimeout(function () {
+                if (el.parentNode) {
+                    el.parentNode.removeChild(el);
+                }
+            }, 600);
+        }
+    });
+}, 5000);

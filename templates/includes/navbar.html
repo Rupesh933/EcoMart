@@ -6,13 +6,117 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTop4">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link"> English </a>
-
+                <ul class="navbar-nav mr-auto align-items-center">
+                    <!-- Language Selector -->
+                    <li class="nav-item dropdown position-relative">
+                        <a href="javascript:void(0)"
+                            class="nav-link dropdown-toggle d-flex align-items-center py-1 px-2" data-toggle="dropdown"
+                            id="langDropdown" aria-haspopup="true" aria-expanded="false"
+                            style="cursor:pointer; border-radius:6px; transition:background .2s;"
+                            title="Select Language">
+                            <span id="selectedLangFlag" class="mr-1" style="font-size:1rem;">🌐</span>
+                            <span id="selectedLangName" style="font-weight:600; font-size:.85rem;">English</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left shadow-sm border py-1"
+                            aria-labelledby="langDropdown"
+                            style="min-width:180px; border-radius:10px; font-size:.86rem; border-color:#e2e8f0; z-index:1050;">
+                            <h6 class="dropdown-header text-uppercase text-muted py-1"
+                                style="font-size:.7rem; letter-spacing:.5px;">Select Language</h6>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 lang-option active"
+                                href="javascript:void(0)" data-lang="en" data-name="English" data-flag="🇺🇸">
+                                <span><span class="mr-2">🇺🇸</span> English</span>
+                                <i class="fa fa-check text-primary check-icon" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 lang-option"
+                                href="javascript:void(0)" data-lang="hi" data-name="हिन्दी" data-flag="🇮🇳">
+                                <span><span class="mr-2">🇮🇳</span> हिन्दी (Hindi)</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 lang-option"
+                                href="javascript:void(0)" data-lang="es" data-name="Español" data-flag="🇪🇸">
+                                <span><span class="mr-2">🇪🇸</span> Español</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 lang-option"
+                                href="javascript:void(0)" data-lang="fr" data-name="Français" data-flag="🇫🇷">
+                                <span><span class="mr-2">🇫🇷</span> Français</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 lang-option"
+                                href="javascript:void(0)" data-lang="de" data-name="Deutsch" data-flag="🇩🇪">
+                                <span><span class="mr-2">🇩🇪</span> Deutsch</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 lang-option"
+                                href="javascript:void(0)" data-lang="ar" data-name="العربية" data-flag="🇸🇦">
+                                <span><span class="mr-2">🇸🇦</span> العربية</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                        </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link"> USD </a>
+
+                    <span class="text-muted mx-1" style="opacity:.5;">|</span>
+
+                    <!-- Country & Currency Selector -->
+                    <li class="nav-item dropdown position-relative">
+                        <a href="javascript:void(0)"
+                            class="nav-link dropdown-toggle d-flex align-items-center py-1 px-2" data-toggle="dropdown"
+                            id="currencyDropdown" aria-haspopup="true" aria-expanded="false"
+                            style="cursor:pointer; border-radius:6px; transition:background .2s;"
+                            title="Select Country / Currency">
+                            <span id="selectedCurrencyFlag" class="mr-1" style="font-size:1rem;">🇺🇸</span>
+                            <span id="selectedCurrencyCode" style="font-weight:600; font-size:.85rem;">USD</span>
+                            <span id="selectedCurrencySymbol" class="text-muted ml-1"
+                                style="font-size:.78rem;">($)</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left shadow-sm border py-1"
+                            aria-labelledby="currencyDropdown"
+                            style="min-width:230px; border-radius:10px; font-size:.86rem; border-color:#e2e8f0; z-index:1050;">
+                            <h6 class="dropdown-header text-uppercase text-muted py-1"
+                                style="font-size:.7rem; letter-spacing:.5px;">Select Country &amp; Currency</h6>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 currency-option active"
+                                href="javascript:void(0)" data-country="USA" data-code="USD" data-symbol="$"
+                                data-flag="🇺🇸" data-rate="1">
+                                <span><span class="mr-2">🇺🇸</span> USA (USD $)</span>
+                                <i class="fa fa-check text-primary check-icon" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 currency-option"
+                                href="javascript:void(0)" data-country="India" data-code="INR" data-symbol="₹"
+                                data-flag="🇮🇳" data-rate="83.5">
+                                <span><span class="mr-2">🇮🇳</span> India (INR ₹)</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 currency-option"
+                                href="javascript:void(0)" data-country="Europe" data-code="EUR" data-symbol="€"
+                                data-flag="🇪🇺" data-rate="0.92">
+                                <span><span class="mr-2">🇪🇺</span> Europe (EUR €)</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 currency-option"
+                                href="javascript:void(0)" data-country="UK" data-code="GBP" data-symbol="£"
+                                data-flag="🇬🇧" data-rate="0.79">
+                                <span><span class="mr-2">🇬🇧</span> UK (GBP £)</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 currency-option"
+                                href="javascript:void(0)" data-country="Canada" data-code="CAD" data-symbol="CA$"
+                                data-flag="🇨🇦" data-rate="1.36">
+                                <span><span class="mr-2">🇨🇦</span> Canada (CAD $)</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 currency-option"
+                                href="javascript:void(0)" data-country="Australia" data-code="AUD" data-symbol="AU$"
+                                data-flag="🇦🇺" data-rate="1.52">
+                                <span><span class="mr-2">🇦🇺</span> Australia (AUD $)</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between py-2 currency-option"
+                                href="javascript:void(0)" data-country="UAE" data-code="AED" data-symbol="AED"
+                                data-flag="🇦🇪" data-rate="3.67">
+                                <span><span class="mr-2">🇦🇪</span> UAE (AED د.إ)</span>
+                                <i class="fa fa-check text-primary check-icon d-none" style="font-size:.78rem;"></i>
+                            </a>
+                        </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -27,8 +131,14 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-2 col-md-3 col-6">
-                    <a href="./" class="brand-wrap">
-                        <img class="logo" src="./images/logo.png">
+                    <a href="{% url 'home' %}" class="brand-wrap d-flex align-items-center text-decoration-none" style="gap:10px;" title="EcoMart - Home">
+                        <span style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, #0f3460, #16213e); display:inline-flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(15, 52, 96, 0.25); flex-shrink:0;">
+                            <i class="fa fa-shopping-bag" style="color:#ffc107; font-size:1.15rem;"></i>
+                        </span>
+                        <div style="line-height:1.1;">
+                            <span style="font-size:1.45rem; font-weight:800; color:#0f3460; letter-spacing:-0.5px;">Eco<span style="color:#cc872e;">Mart</span></span>
+                            <small class="d-block text-muted" style="font-size:0.65rem; font-weight:600; letter-spacing:0.8px; text-transform:uppercase;">Shop Smart</small>
+                        </div>
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg col-sm col-md col-6 flex-grow-0">
@@ -95,4 +205,125 @@
 
 
 
+
+    <!-- Floating Toast for Language/Country switch feedback -->
+    <div id="quickToast" style="position:fixed; bottom:24px; right:24px; z-index:9999;
+         background:linear-gradient(135deg,#0f3460,#1a1a2e); color:#fff;
+         padding:12px 20px; border-radius:10px; font-size:.88rem; font-weight:600;
+         box-shadow:0 10px 30px rgba(0,0,0,.25); display:none; align-items:center; gap:10px;
+         transition:opacity .3s ease, transform .3s ease; opacity:0; transform:translateY(10px);">
+        <span id="quickToastIcon">🌐</span>
+        <span id="quickToastMsg">Updated successfully</span>
+    </div>
+
+    <script>
+        (function () {
+            function showNotification(icon, message) {
+                var toast = document.getElementById('quickToast');
+                var iconEl = document.getElementById('quickToastIcon');
+                var msgEl = document.getElementById('quickToastMsg');
+                if (!toast) return;
+                iconEl.textContent = icon;
+                msgEl.textContent = message;
+                toast.style.display = 'flex';
+                setTimeout(function () {
+                    toast.style.opacity = '1';
+                    toast.style.transform = 'translateY(0)';
+                }, 10);
+                clearTimeout(window.__toastTimeout);
+                window.__toastTimeout = setTimeout(function () {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(10px)';
+                    setTimeout(function () { toast.style.display = 'none'; }, 300);
+                }, 2200);
+            }
+
+            // ── Language Selector Logic ──
+            function setLanguage(lang, name, flag, notify) {
+                var flagEl = document.getElementById('selectedLangFlag');
+                var nameEl = document.getElementById('selectedLangName');
+                if (flagEl) flagEl.textContent = flag || '🌐';
+                if (nameEl) nameEl.textContent = name || 'English';
+
+                document.querySelectorAll('.lang-option').forEach(function (el) {
+                    var isMatch = el.getAttribute('data-lang') === lang;
+                    el.classList.toggle('active', isMatch);
+                    var check = el.querySelector('.check-icon');
+                    if (check) check.classList.toggle('d-none', !isMatch);
+                });
+
+                localStorage.setItem('ecomart_lang', JSON.stringify({ lang: lang, name: name, flag: flag }));
+                if (notify) {
+                    showNotification(flag || '🌐', 'Language set to ' + name);
+                }
+            }
+
+            // ── Currency / Country Selector Logic ──
+            function setCurrency(code, symbol, flag, country, rate, notify) {
+                var flagEl = document.getElementById('selectedCurrencyFlag');
+                var codeEl = document.getElementById('selectedCurrencyCode');
+                var symEl = document.getElementById('selectedCurrencySymbol');
+                if (flagEl) flagEl.textContent = flag || '🇺🇸';
+                if (codeEl) codeEl.textContent = code || 'USD';
+                if (symEl) symEl.textContent = '(' + (symbol || '$') + ')';
+
+                document.querySelectorAll('.currency-option').forEach(function (el) {
+                    var isMatch = el.getAttribute('data-code') === code;
+                    el.classList.toggle('active', isMatch);
+                    var check = el.querySelector('.check-icon');
+                    if (check) check.classList.toggle('d-none', !isMatch);
+                });
+
+                localStorage.setItem('ecomart_currency', JSON.stringify({
+                    code: code, symbol: symbol, flag: flag, country: country, rate: rate
+                }));
+
+                if (notify) {
+                    showNotification(flag || '💵', 'Currency set to ' + code + ' (' + symbol + ')');
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Restore saved language
+                try {
+                    var savedLang = JSON.parse(localStorage.getItem('ecomart_lang'));
+                    if (savedLang && savedLang.lang) {
+                        setLanguage(savedLang.lang, savedLang.name, savedLang.flag, false);
+                    }
+                } catch (e) { }
+
+                // Restore saved currency
+                try {
+                    var savedCurr = JSON.parse(localStorage.getItem('ecomart_currency'));
+                    if (savedCurr && savedCurr.code) {
+                        setCurrency(savedCurr.code, savedCurr.symbol, savedCurr.flag, savedCurr.country, savedCurr.rate, false);
+                    }
+                } catch (e) { }
+
+                // Click listener for language options
+                document.querySelectorAll('.lang-option').forEach(function (item) {
+                    item.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var lang = this.getAttribute('data-lang');
+                        var name = this.getAttribute('data-name');
+                        var flag = this.getAttribute('data-flag');
+                        setLanguage(lang, name, flag, true);
+                    });
+                });
+
+                // Click listener for currency options
+                document.querySelectorAll('.currency-option').forEach(function (item) {
+                    item.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var code = this.getAttribute('data-code');
+                        var symbol = this.getAttribute('data-symbol');
+                        var flag = this.getAttribute('data-flag');
+                        var country = this.getAttribute('data-country');
+                        var rate = this.getAttribute('data-rate');
+                        setCurrency(code, symbol, flag, country, rate, true);
+                    });
+                });
+            });
+        })();
+    </script>
 </header> <!-- section-header.// -->

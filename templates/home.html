@@ -1,42 +1,535 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
-<!-- ========================= SECTION MAIN ========================= -->
+<!-- ==================== INTERNAL STYLES & ANIMATIONS ==================== -->
+<style>
+/* ── Ticker ── */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.ticker-wrap { background: linear-gradient(90deg,#0f3460,#1a1a2e); overflow:hidden; padding:8px 0; }
+.ticker-content { display:inline-block; white-space:nowrap; animation: ticker-scroll 22s linear infinite; color:#fff; font-size:.84rem; letter-spacing:.4px; }
+.ticker-content span { margin:0 50px; }
+.ticker-content i { color:#ffd700; margin-right:5px; }
+
+/* ── Fade-in on scroll ── */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(30px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.anim-fadeup { animation: fadeInUp .7s ease both; }
+.anim-delay-1 { animation-delay:.1s; }
+.anim-delay-2 { animation-delay:.2s; }
+.anim-delay-3 { animation-delay:.3s; }
+.anim-delay-4 { animation-delay:.4s; }
+
+/* ── Pulse badge ── */
+@keyframes pulse {
+  0%,100% { transform:scale(1); }
+  50%      { transform:scale(1.12); }
+}
+.badge-pulse { animation: pulse 1.6s ease-in-out infinite; }
+
+/* ── Feature cards ── */
+.feature-card {
+  border:none; border-radius:14px;
+  background:linear-gradient(135deg,#f8faff,#eef2ff);
+  transition: transform .3s, box-shadow .3s;
+  padding:28px 20px; text-align:center;
+}
+.feature-card:hover { transform:translateY(-8px); box-shadow:0 16px 40px rgba(0,0,0,.13); }
+.feature-icon {
+  width:62px; height:62px; border-radius:50%; display:inline-flex;
+  align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:14px;
+}
+
+/* ── Flex Category Strip ── */
+.cat-flex-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+.cat-flex-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #f4f7fc;
+  border: 1.5px solid #dce4f0;
+  border-radius: 50px;
+  padding: 8px 18px 8px 8px;
+  text-decoration: none !important;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+.cat-flex-pill:hover {
+  background: linear-gradient(135deg, #0f3460, #16213e);
+  border-color: #0f3460;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(15, 52, 96, 0.22);
+}
+.cat-pill-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease;
+}
+.cat-pill-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cat-pill-icon i {
+  color: #0f3460;
+  font-size: 0.95rem;
+}
+.cat-pill-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #2d3748;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+.cat-pill-arrow {
+  color: #a0aec0;
+  font-size: 0.82rem;
+  transition: all 0.25s ease;
+  margin-left: 2px;
+}
+.cat-flex-pill:hover .cat-pill-title {
+  color: #ffffff;
+}
+.cat-flex-pill:hover .cat-pill-arrow {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+.cat-flex-pill:hover .cat-pill-icon {
+  transform: scale(1.08);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Product cards ── */
+.product-card {
+  border:none; border-radius:14px; overflow:hidden;
+  transition: transform .3s, box-shadow .3s;
+  background:#fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07);
+}
+.product-card:hover { transform:translateY(-6px); box-shadow:0 16px 36px rgba(0,0,0,.14); }
+.product-card .img-wrap { overflow:hidden; height:190px; }
+.product-card .img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+.product-card:hover .img-wrap img { transform:scale(1.08); }
+.product-card .info-wrap { padding:14px 16px 16px; }
+.product-card .title { font-weight:600; font-size:.92rem; color:#1a202c; display:block; margin-bottom:6px; text-decoration:none; }
+.product-card .title:hover { color:#0f3460; }
+.product-card .price { color:#0f3460; font-weight:700; font-size:1rem; }
+
+/* ── Stats strip ── */
+.stats-strip { background:linear-gradient(135deg,#0f3460,#1a1a2e); color:#fff; padding:40px 0; }
+.stat-item { text-align:center; }
+.stat-item .stat-num { font-size:2rem; font-weight:800; display:block; color:#ffd700; }
+.stat-item .stat-label { font-size:.82rem; opacity:.8; letter-spacing:.5px; }
+
+/* ── Deal countdown ── */
+.deal-section { background:linear-gradient(135deg,#fff5f5,#fff0f6); border-radius:16px; padding:30px; }
+.countdown-box span {
+  display:inline-block; background:#0f3460; color:#fff;
+  border-radius:8px; font-size:1.5rem; font-weight:800;
+  padding:8px 14px; margin:0 3px; min-width:48px; text-align:center;
+}
+.countdown-box .unit { display:block; font-size:.6rem; letter-spacing:1px; font-weight:400; opacity:.8; }
+
+/* ── Promo banner ── */
+.promo-card {
+  border-radius:16px; overflow:hidden; position:relative;
+  display:flex; align-items:center; padding:30px;
+  min-height:160px;
+}
+.promo-card .promo-text { position:relative; z-index:2; }
+.promo-card .promo-bg-icon {
+  position:absolute; right:-10px; bottom:-10px;
+  font-size:7rem; opacity:.12; z-index:1;
+}
+
+/* ── Testimonials ── */
+.review-card {
+  background:#fff; border-radius:14px; padding:24px;
+  box-shadow:0 4px 20px rgba(0,0,0,.07);
+  transition:transform .3s;
+}
+.review-card:hover { transform:translateY(-4px); }
+.stars { color:#ffd700; font-size:.9rem; }
+</style>
+
+<!-- ==================== TICKER / ANNOUNCEMENT STRIP ==================== -->
+<div class="ticker-wrap">
+  <div class="ticker-content">
+    <span><i class="fa fa-tag"></i> Up to 50% OFF on Electronics — Limited Time!</span>
+    <span><i class="fa fa-shipping-fast"></i> Free Shipping on orders above ₹499</span>
+    <span><i class="fa fa-star"></i> New Arrivals: Summer Collection 2025 is Live!</span>
+    <span><i class="fa fa-gift"></i> Use code <strong>ECOMART10</strong> for 10% off your first order</span>
+    <span><i class="fa fa-headset"></i> 24/7 Customer Support — We're always here for you</span>
+  </div>
+</div>
+
+<!-- ========================= BANNER CAROUSEL ========================= -->
 <section class="section-intro padding-y-sm">
-    <div class="container">
-
-        <div class="intro-banner-wrap">
-            <img src="images/banners/1.jpg" class="img-fluid rounded">
+  <div class="container">
+    <div class="intro-banner-wrap">
+      <div id="bannerCarousel" class="carousel slide" data-ride="carousel" data-interval="3500">
+        <ol class="carousel-indicators">
+          <li data-target="#bannerCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#bannerCarousel" data-slide-to="1"></li>
+          <li data-target="#bannerCarousel" data-slide-to="2"></li>
+          <li data-target="#bannerCarousel" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner rounded" style="max-height:420px;overflow:hidden;">
+          <div class="carousel-item active">
+            <img src="{% static 'images/banners/1.jpg' %}" class="d-block w-100" style="height:420px;object-fit:cover;" alt="Banner 1">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/banners/2.jpg' %}" class="d-block w-100" style="height:420px;object-fit:cover;" alt="Banner 2">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/banners/3.jpg' %}" class="d-block w-100" style="height:420px;object-fit:cover;" alt="Banner 3">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/banners/4.jpg' %}" class="d-block w-100" style="height:420px;object-fit:cover;" alt="Banner 4">
+          </div>
         </div>
-
-    </div> <!-- container //  -->
+        <a class="carousel-control-prev" href="#bannerCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#bannerCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- ========================= SECTION MAIN END// ========================= -->
 
-<!-- ========================= SECTION  ========================= -->
-<section class="section-name padding-y-sm">
-    <div class="container">
-
-        <header class="section-heading">
-            <a href="./store.html" class="btn btn-outline-primary float-right">See all</a>
-            <h3 class="section-title">Popular products</h3>
-        </header><!-- sect-heading -->
-
-
-        <div class="row">
-            {% for product in products %}
-            <div class="col-md-3">
-                <div class="card card-product-grid">
-                    <a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.images.url }}"> </a>
-                    <figcaption class="info-wrap">
-                        <a href="{{ product.get_url }}" class="title">{{ product.product_name|slice:15 }}</a>
-                        <div class="price mt-1">${{ product.price }}</div> <!-- price-wrap.// -->
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-            {% endfor %}
-        </div><!-- container // -->
+<!-- ========================= WHY CHOOSE US (Features) ========================= -->
+<section style="padding:48px 0 36px; background:#f9faff;">
+  <div class="container">
+    <div class="row text-center anim-fadeup">
+      <div class="col-12 mb-4">
+        <h2 style="font-weight:800;color:#1a1a2e;font-size:1.6rem;">Why Shop at <span style="color:#0f3460;">EcoMart?</span></h2>
+        <p class="text-muted" style="font-size:.92rem;">Everything you need, delivered to your doorstep.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-sm-6 mb-4 anim-fadeup anim-delay-1">
+        <div class="feature-card h-100">
+          <div class="feature-icon mx-auto" style="background:#e0f2ff;"><i class="fa fa-shipping-fast" style="color:#0f3460;"></i></div>
+          <h6 style="font-weight:700;color:#1a202c;">Free Delivery</h6>
+          <p class="text-muted mb-0" style="font-size:.83rem;">On all orders over ₹499. Fast &amp; reliable shipping to your door.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4 anim-fadeup anim-delay-2">
+        <div class="feature-card h-100">
+          <div class="feature-icon mx-auto" style="background:#fff0e0;"><i class="fa fa-shield-alt" style="color:#e67e22;"></i></div>
+          <h6 style="font-weight:700;color:#1a202c;">Secure Payments</h6>
+          <p class="text-muted mb-0" style="font-size:.83rem;">100% secure transactions. UPI, Cards, Net Banking &amp; more.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4 anim-fadeup anim-delay-3">
+        <div class="feature-card h-100">
+          <div class="feature-icon mx-auto" style="background:#e8f8f5;"><i class="fa fa-undo" style="color:#27ae60;"></i></div>
+          <h6 style="font-weight:700;color:#1a202c;">Easy Returns</h6>
+          <p class="text-muted mb-0" style="font-size:.83rem;">Hassle-free 30-day return policy. No questions asked.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4 anim-fadeup anim-delay-4">
+        <div class="feature-card h-100">
+          <div class="feature-icon mx-auto" style="background:#fdf0ff;"><i class="fa fa-headset" style="color:#8e44ad;"></i></div>
+          <h6 style="font-weight:700;color:#1a202c;">24/7 Support</h6>
+          <p class="text-muted mb-0" style="font-size:.83rem;">Our support team is always ready to help you anytime.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- ========================= SECTION  END// ========================= -->
+
+<!-- ========================= SHOP BY CATEGORY ========================= -->
+<section style="padding:36px 0 28px; background:#fff; border-bottom:1px solid #edf2f7;">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h2 style="font-weight:800;color:#1a1a2e;font-size:1.45rem;margin-bottom:2px;">Shop by Category</h2>
+        <p class="text-muted mb-0" style="font-size:.85rem;">Explore our wide range of collections</p>
+      </div>
+      <a href="{% url 'store' %}" class="btn btn-outline-primary btn-sm" style="border-radius:20px; font-weight:600; font-size:.82rem; padding:5px 16px;">
+        View All <i class="fa fa-arrow-right ml-1"></i>
+      </a>
+    </div>
+
+    <!-- Flex Category Strip -->
+    <div class="cat-flex-wrapper">
+      {% for category in links %}
+      <a href="{{ category.get_url }}" class="cat-flex-pill anim-fadeup">
+        <span class="cat-pill-icon">
+          {% if category.cat_image %}
+            <img src="{{ category.cat_image.url }}" alt="{{ category.category_name }}">
+          {% else %}
+            <i class="fa fa-th-large"></i>
+          {% endif %}
+        </span>
+        <span class="cat-pill-title">{{ category.category_name|capfirst }}</span>
+        <i class="fa fa-angle-right cat-pill-arrow"></i>
+      </a>
+      {% empty %}
+      <a href="{% url 'store' %}" class="cat-flex-pill">
+        <span class="cat-pill-icon"><i class="fa fa-shopping-bag"></i></span>
+        <span class="cat-pill-title">All Categories</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ========================= DEAL OF THE DAY ========================= -->
+<section style="padding:40px 0; background:#f9faff;">
+  <div class="container">
+    <div class="deal-section">
+      <div class="row align-items-center">
+        <div class="col-md-7 mb-3 mb-md-0">
+          <span class="badge badge-danger badge-pulse px-3 py-2 mb-3" style="font-size:.8rem;border-radius:20px;">
+            <i class="fa fa-fire mr-1"></i> DEAL OF THE DAY
+          </span>
+          <h3 style="font-weight:800;color:#1a1a2e;margin-bottom:8px;">Flash Sale — Up to <span style="color:#e74c3c;">60% OFF</span></h3>
+          <p class="text-muted mb-3" style="font-size:.9rem;">Grab the hottest deals before they're gone. Limited stock available!</p>
+          <div class="countdown-box mb-4">
+            <span><b id="deal-hours">00</b><small class="unit">HRS</small></span>
+            <span><b id="deal-mins">00</b><small class="unit">MIN</small></span>
+            <span><b id="deal-secs">00</b><small class="unit">SEC</small></span>
+          </div>
+          <a href="{% url 'store' %}" class="btn btn-danger btn-lg px-4" style="border-radius:10px;">
+            <i class="fa fa-bolt mr-2"></i> Shop the Sale
+          </a>
+        </div>
+        <div class="col-md-5 text-center">
+          <div style="font-size:7rem;opacity:.15;color:#e74c3c;position:absolute;right:30px;top:20px;"><i class="fa fa-percent"></i></div>
+          <div style="background:linear-gradient(135deg,#e74c3c,#c0392b);border-radius:50%;width:180px;height:180px;display:inline-flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 12px 40px rgba(231,76,60,.4);">
+            <div class="text-white text-center">
+              <div style="font-size:3rem;font-weight:900;line-height:1;">60%</div>
+              <div style="font-size:.85rem;letter-spacing:2px;">OFF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= POPULAR PRODUCTS ========================= -->
+<section style="padding:40px 0 30px; background:#fff;">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 style="font-weight:800;color:#1a1a2e;font-size:1.5rem;margin-bottom:4px;">Popular Products</h2>
+        <p class="text-muted mb-0" style="font-size:.88rem;">Loved by thousands of customers</p>
+      </div>
+      <a href="{% url 'store' %}" class="btn btn-outline-primary btn-sm">See All</a>
+    </div>
+    <div class="row">
+      {% for product in products %}
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4 anim-fadeup">
+        <div class="product-card">
+          <a href="{{ product.get_url }}" class="img-wrap d-block">
+            <img src="{{ product.images.url }}" alt="{{ product.product_name }}">
+          </a>
+          <div class="info-wrap">
+            <a href="{{ product.get_url }}" class="title">{{ product.product_name|truncatechars:30 }}</a>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <span class="price">&#8377;{{ product.price }}</span>
+              <a href="{% url 'add_cart' product.id %}" class="btn btn-sm btn-primary" style="border-radius:8px;padding:4px 12px;" title="Add to Cart">
+                <i class="fa fa-cart-plus"></i>
+              </a>
+            </div>
+            <div class="stars mt-1">
+              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i>
+              <small class="text-muted ml-1">(4.0)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <i class="fa fa-box-open fa-3x text-muted mb-3"></i>
+        <p class="text-muted">No products available yet. Check back soon!</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ========================= STATS STRIP ========================= -->
+<section class="stats-strip anim-fadeup">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 col-md-3 mb-3 mb-md-0 stat-item">
+        <span class="stat-num" id="count-customers">50K+</span>
+        <span class="stat-label">HAPPY CUSTOMERS</span>
+      </div>
+      <div class="col-6 col-md-3 mb-3 mb-md-0 stat-item">
+        <span class="stat-num">10K+</span>
+        <span class="stat-label">PRODUCTS LISTED</span>
+      </div>
+      <div class="col-6 col-md-3 mb-3 mb-md-0 stat-item">
+        <span class="stat-num">200+</span>
+        <span class="stat-label">BRANDS AVAILABLE</span>
+      </div>
+      <div class="col-6 col-md-3 stat-item">
+        <span class="stat-num">4.8 ★</span>
+        <span class="stat-label">AVERAGE RATING</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= PROMO BANNERS ========================= -->
+<section style="padding:40px 0; background:#f9faff;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="promo-card" style="background:linear-gradient(135deg,#0f3460,#16213e);">
+          <div class="promo-text">
+            <span class="badge badge-warning mb-2" style="font-size:.75rem;">NEW COLLECTION</span>
+            <h4 style="color:#fff;font-weight:800;margin-bottom:8px;">Electronics<br>Super Sale</h4>
+            <p style="color:#a0aec0;font-size:.85rem;margin-bottom:16px;">Up to 40% off on top brands</p>
+            <a href="{% url 'store' %}" class="btn btn-warning btn-sm px-4" style="border-radius:20px;font-weight:700;">Shop Now</a>
+          </div>
+          <div class="promo-bg-icon text-white"><i class="fa fa-laptop"></i></div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="promo-card" style="background:linear-gradient(135deg,#27ae60,#1e8449);">
+          <div class="promo-text">
+            <span class="badge badge-light mb-2" style="font-size:.75rem;">LIMITED OFFER</span>
+            <h4 style="color:#fff;font-weight:800;margin-bottom:8px;">Fashion &amp;<br>Lifestyle</h4>
+            <p style="color:#d5f5e3;font-size:.85rem;margin-bottom:16px;">Trending styles, unbeatable prices</p>
+            <a href="{% url 'store' %}" class="btn btn-light btn-sm px-4" style="border-radius:20px;font-weight:700;color:#27ae60;">Explore</a>
+          </div>
+          <div class="promo-bg-icon text-white"><i class="fa fa-tshirt"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CUSTOMER REVIEWS ========================= -->
+<section style="padding:40px 0 50px; background:#fff;">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 style="font-weight:800;color:#1a1a2e;font-size:1.5rem;">What Our Customers Say</h2>
+      <p class="text-muted" style="font-size:.9rem;">Trusted by thousands of happy shoppers</p>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-4 anim-fadeup anim-delay-1">
+        <div class="review-card">
+          <div class="stars mb-2">
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+          </div>
+          <p class="mb-3" style="font-size:.88rem;color:#4a5568;">&ldquo;Absolutely love shopping here! The quality is top-notch and delivery was super fast. Will definitely order again.&rdquo;</p>
+          <div class="d-flex align-items-center">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0f3460,#16213e);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.9rem;margin-right:10px;">P</div>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:#1a202c;">Priya Sharma</div>
+              <div style="font-size:.78rem;color:#a0aec0;">Mumbai, India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4 anim-fadeup anim-delay-2">
+        <div class="review-card">
+          <div class="stars mb-2">
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i>
+          </div>
+          <p class="mb-3" style="font-size:.88rem;color:#4a5568;">&ldquo;Great prices compared to other sites. The return process was hassle-free. Customer support was very responsive!&rdquo;</p>
+          <div class="d-flex align-items-center">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#27ae60,#1e8449);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.9rem;margin-right:10px;">R</div>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:#1a202c;">Rahul Mehta</div>
+              <div style="font-size:.78rem;color:#a0aec0;">Delhi, India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4 anim-fadeup anim-delay-3">
+        <div class="review-card">
+          <div class="stars mb-2">
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+          </div>
+          <p class="mb-3" style="font-size:.88rem;color:#4a5568;">&ldquo;EcoMart is my go-to shopping destination. Huge variety, genuine products and amazing offers every week!&rdquo;</p>
+          <div class="d-flex align-items-center">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#8e44ad,#6c3483);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.9rem;margin-right:10px;">A</div>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:#1a202c;">Ananya Patel</div>
+              <div style="font-size:.78rem;color:#a0aec0;">Bangalore, India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= JAVASCRIPT ========================= -->
+<script>
+// ── Deal countdown timer (counts down to midnight) ──
+function updateCountdown() {
+  var elH = document.getElementById('deal-hours');
+  var elM = document.getElementById('deal-mins');
+  var elS = document.getElementById('deal-secs');
+  if (!elH || !elM || !elS) return;
+
+  var now  = new Date();
+  var end  = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  var diff = Math.max(0, Math.floor((end - now) / 1000));
+  var h = Math.floor(diff / 3600);
+  var m = Math.floor((diff % 3600) / 60);
+  var s = diff % 60;
+  var pad = function(n){ return String(n).padStart(2, '0'); };
+
+  elH.textContent = pad(h);
+  elM.textContent = pad(m);
+  elS.textContent = pad(s);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+});
+
+// ── Intersection Observer: fade-in-up on scroll ──
+(function(){
+  var els = document.querySelectorAll('.anim-fadeup');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el){
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = 'opacity .7s ease, transform .7s ease';
+    obs.observe(el);
+  });
+})();
+</script>
 
 {% endblock content %}
