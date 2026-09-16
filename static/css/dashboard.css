@@ -1,167 +1,226 @@
-/* =========================================================
-ECOMART DASHBOARD
-GreatKart / Bootstrap-style design
-========================================================= */
-
 /* =========================
-Dashboard Page
+MAIN SECTION
 ========================= */
 
 .dashboard-page {
     background: #f8f9fa;
-    min-height: 75vh;
+    min-height: 80vh;
 }
 
 /* =========================
-Sidebar
+SIDEBAR
 ========================= */
 
-.dashboard-page .list-group {
-    border-radius: 4px;
+.dashboard-sidebar {
+    margin-bottom: 0;
+    border-radius: 3px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.dashboard-page .list-group-item {
-    color: #343a40;
+.dashboard-sidebar .list-group-item {
     background: #fff;
-    border-color: #e5e5e5;
+    border: 1px solid #e5e5e5;
+    border-bottom: 0;
+    color: #343a40;
     padding: 13px 16px;
     font-size: 14px;
+    line-height: 1.5;
     transition: all 0.2s ease;
+
 }
 
-.dashboard-page .list-group-item i {
+.dashboard-sidebar .list-group-item:last-child {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.dashboard-sidebar .list-group-item i {
     width: 18px;
     text-align: center;
     color: #6c757d;
 }
 
-.dashboard-page .list-group-item:hover {
-    color: #0f3460;
+.dashboard-sidebar .list-group-item:hover {
     background: #f8f9fa;
-}
-
-.dashboard-page .list-group-item:hover i {
     color: #0f3460;
 }
 
-.dashboard-page .list-group-item.active {
+.dashboard-sidebar .list-group-item:hover i {
+    color: #0f3460;
+}
+
+.dashboard-sidebar .list-group-item.active {
     background: #0f3460;
     border-color: #0f3460;
     color: #fff;
 }
 
-.dashboard-page .list-group-item.active i {
+.dashboard-sidebar .list-group-item.active i {
     color: #fff;
 }
 
 /* =========================
-Logout Button
+LOGOUT
 ========================= */
 
-.dashboard-page .btn-light {
-    background: #fff;
+.dashboard-logout {
     border: 1px solid #ddd;
+    background: #fff;
     color: #343a40;
+    font-size: 14px;
+    padding: 10px 15px;
 }
 
-.dashboard-page .btn-light:hover {
+.dashboard-logout:hover {
     background: #f5f5f5;
-    border-color: #ccc;
     color: #0f3460;
+    border-color: #ccc;
 }
 
 /* =========================
-Main Dashboard Card
+ORDER CARD
 ========================= */
 
-.dashboard-page .card {
+.order-card {
     border: 1px solid #e5e5e5;
     border-radius: 4px;
     background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+
 }
 
-.dashboard-page .card-header {
+/* =========================
+ORDER HEADER
+========================= */
+
+.order-header {
     background: #fff;
     border-bottom: 1px solid #e5e5e5;
     padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+}
+
+.order-header strong {
+    font-size: 14px;
     color: #212529;
 }
 
-/* =========================
-Order Header
-========================= */
-
-.dashboard-page .card-header strong {
-    color: #212529;
-}
-
-.dashboard-page .card-header .text-muted {
+.order-header .text-muted {
     font-size: 13px;
 }
 
+.order-status {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 3px;
+
+}
+
 /* =========================
-Order Body
+ORDER BODY
 ========================= */
 
-.dashboard-page .card-body {
+.order-card .card-body {
     padding: 20px;
 }
 
-.dashboard-page .card-body h6 {
-    font-size: 14px;
+.section-title {
+    font-size: 13px;
     font-weight: 600;
+    text-transform: none;
     margin-bottom: 10px;
 }
 
-.dashboard-page .card-body p {
+.delivery-info {
     font-size: 14px;
     line-height: 1.8;
     color: #343a40;
 }
 
+.delivery-info i {
+    width: 17px;
+    color: #8a8a8a;
+    text-align: center;
+}
+
+.delivery-info strong {
+    color: #212529;
+}
+
 /* =========================
-Payment
+PAYMENT
 ========================= */
 
-.dashboard-page .text-success {
+.payment-method {
+    margin-bottom: 12px;
+}
+
+.payment-method .text-success {
     color: #28a745 !important;
-}
-
-.dashboard-page .fa-cc-visa {
-    margin-right: 4px;
-}
-
-/* =========================
-Product Table
-========================= */
-
-.dashboard-page .table {
-    margin-bottom: 0;
-}
-
-.dashboard-page .table td {
-    vertical-align: middle;
-    border-top: 1px solid #eee;
-    padding: 14px 12px;
     font-size: 14px;
 }
 
-.dashboard-page .table tr:first-child td {
+.payment-method .fa-cc-visa {
+    margin-right: 4px;
+}
+
+.payment-summary {
+    width: 100%;
+    max-width: 250px;
+}
+
+.payment-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.payment-row.total {
+    border-top: 1px solid #eee;
+    margin-top: 6px;
+    padding-top: 8px;
+    color: #212529;
+}
+
+/* =========================
+PRODUCT TABLE
+========================= */
+
+.order-items {
+    margin: 0;
+}
+
+.order-items td {
+    vertical-align: middle;
+    padding: 14px 12px;
+    border-top: 1px solid #eee;
+    font-size: 14px;
+}
+
+.order-items tr:first-child td {
     border-top: 0;
 }
 
-.dashboard-page .table tbody tr:hover {
+.order-items tr:hover {
     background: #fafafa;
 }
 
 /* =========================
-Product Image
+PRODUCT IMAGE
 ========================= */
 
-.dashboard-page .img-xs {
+.product-image-cell {
+    text-align: center;
+}
+
+.order-items .img-xs {
     width: 64px;
     height: 64px;
     object-fit: cover;
@@ -170,42 +229,34 @@ Product Image
 }
 
 /* =========================
-Product Title
+PRODUCT DETAILS
 ========================= */
 
-.dashboard-page .table .title {
+.order-items .title {
     color: #212529;
     font-size: 14px;
     font-weight: 500;
+    text-decoration: none;
 }
 
-.dashboard-page .table .price {
+.order-items .price {
     font-size: 13px;
 }
 
-/* =========================
-Seller
-========================= */
+.seller-cell {
+    min-width: 110px;
+}
 
-.dashboard-page .table td small {
+.seller-cell small {
     font-size: 12px;
 }
 
 /* =========================
-Buttons
+ACTION BUTTONS
 ========================= */
 
-.dashboard-page .btn-primary {
-    background-color: #0f3460;
-    border-color: #0f3460;
-}
-
-.dashboard-page .btn-primary:hover,
-.dashboard-page .btn-primary:focus,
-.dashboard-page .btn-primary:active {
-    background-color: #16213e !important;
-    border-color: #16213e !important;
-    box-shadow: none !important;
+.action-cell {
+    white-space: nowrap;
 }
 
 .dashboard-page .btn-outline-primary {
@@ -222,97 +273,164 @@ Buttons
     box-shadow: none;
 }
 
+.dashboard-page .btn-light {
+    background: #fff;
+    border-color: #ddd;
+    color: #343a40;
+}
+
+.dashboard-page .btn-light:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+    color: #0f3460;
+}
+
 /* =========================
-Bottom Summary Cards
+SUMMARY CARDS
 ========================= */
 
-.dashboard-page .mt-4 .card {
+.dashboard-summary {
+    margin-top: 25px;
+}
+
+.summary-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     height: 100%;
     transition: all 0.2s ease;
 }
 
-.dashboard-page .mt-4 .card:hover {
-    border-color: #d5d5d5;
+.summary-card:hover {
+    border-color: #d7d7d7;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
 }
 
-.dashboard-page .mt-4 .card-body {
+.summary-card .card-body {
     padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.dashboard-page .mt-4 .card-title {
-    font-size: 14px;
-    color: #495057;
-    margin-bottom: 10px;
+.summary-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef3f8;
+    color: #0f3460;
+    border-radius: 4px;
+    font-size: 17px;
+    flex-shrink: 0;
+
 }
 
-.dashboard-page .mt-4 h4 {
-    font-size: 24px;
+.summary-icon.success {
+    background: #eaf7ee;
+    color: #28a745;
+}
+
+.summary-icon.warning {
+    background: #fff4e5;
+    color: #e67e22;
+}
+
+.summary-content h6 {
+    margin: 0 0 5px;
+    font-size: 13px;
+    font-weight: 500;
+
+
+}
+
+.summary-content h4 {
+    margin: 0;
+    font-size: 22px;
     font-weight: 600;
     color: #212529;
 }
 
 /* =========================
-Responsive
+RESPONSIVE
 ========================= */
 
 @media (max-width: 991px) {
 
-    .dashboard-page .card-header {
-        padding: 15px;
+
+    .dashboard-page {
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 
-    .dashboard-page .card-body {
-        padding: 16px;
-    }
-
-    .dashboard-page .table td {
-        padding: 12px 10px;
-    }
-}
-
-@media (max-width: 767px) {
-
-    .dashboard-page .list-group {
+    .dashboard-sidebar {
         margin-bottom: 20px;
     }
 
-    .dashboard-page .card-header strong {
-        display: block;
-        margin-bottom: 5px;
+    .order-header {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
-    .dashboard-page .card-header .mr-4 {
-        margin-right: 0 !important;
+    .order-status {
+        align-self: flex-start;
     }
 
-    .dashboard-page .table {
-        min-width: 700px;
-    }
 
-    .dashboard-page .table-responsive {
-        overflow-x: auto;
-    }
 }
 
-@media (max-width: 575px) {
+/* =========================
+MOBILE
+========================= */
 
-    .dashboard-page .card-body {
+@media (max-width: 767px) {
+
+    .dashboard-page .container {
+        width: 100%;
+    }
+
+    .order-card .card-body {
         padding: 15px;
     }
 
-    .dashboard-page .table td {
-        padding: 10px 8px;
+    .order-items {
+        min-width: 700px;
     }
 
-    .dashboard-page .img-xs {
-        width: 55px;
-        height: 55px;
+    .table-responsive {
+        border: 0;
     }
 
-    .dashboard-page .btn-sm {
-        font-size: 12px;
-        padding: 5px 9px;
+    .dashboard-summary {
+        margin-top: 20px;
+    }
+
+}
+
+/* =========================
+SMALL MOBILE
+========================= */
+
+@media (max-width: 575px) {
+
+    .order-header {
+        padding: 14px 15px;
+    }
+
+    .order-header strong {
+        display: block;
+        margin-right: 0 !important;
+        margin-bottom: 5px;
+    }
+
+    .dashboard-sidebar .list-group-item {
+        padding: 12px 14px;
+    }
+
+    .summary-card .card-body {
+        padding: 15px;
     }
 
 }

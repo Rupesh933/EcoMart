@@ -1,22 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block content %}
+
+<!-- Dashboard CSS -->
+
 <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css">
 
-{% block content %}
 <!-- ========================= SECTION CONTENT ========================= -->
 
-<section class="section-content padding-y bg">
-
+<section class="section-content padding-y bg dashboard-page">
     <div class="container">
-
         <div class="row">
-
             <!-- ========================= SIDEBAR ========================= -->
             <aside class="col-md-3">
-
-                <!-- SIDEBAR -->
-                <ul class="list-group">
+                <ul class="list-group dashboard-sidebar">
 
                     <a class="list-group-item active" href="#">
                         <i class="fa fa-shopping-bag mr-2"></i>
@@ -47,288 +45,152 @@
                         <i class="fa fa-clipboard-list mr-2"></i>
                         Received orders
                     </a>
-
                 </ul>
-
                 <br>
-
-                <a class="btn btn-light btn-block" href="#">
+                <a href="#" class="btn btn-light btn-block dashboard-logout">
                     <i class="fa fa-power-off"></i>
                     <span class="text"> Log out</span>
                 </a>
-
-                <!-- SIDEBAR .//END -->
-
             </aside>
             <!-- ========================= SIDEBAR END ========================= -->
 
-
             <!-- ========================= MAIN CONTENT ========================= -->
             <main class="col-md-9">
-
                 <!-- ========================= ORDER CARD ========================= -->
-                <article class="card">
-
+                <article class="card order-card">
                     <!-- ORDER HEADER -->
-                    <header class="card-header">
-
-                        <strong class="d-inline-block mr-4">
-                            Order ID: 6123456789
-                        </strong>
-
-                        <span class="text-muted">
-                            Order Date: 16 December 2018
-                        </span>
-
+                    <header class="card-header order-header">
+                        <div>
+                            <strong class="d-inline-block mr-3">Order ID: 6123456789</strong>
+                            <span class="text-muted">Order Date: 16 December 2018</span>
+                        </div>
+                        <span class="badge badge-warning order-status">Processing</span>
                     </header>
                     <!-- ORDER HEADER END -->
-
-
                     <!-- ========================= ORDER INFORMATION ========================= -->
                     <div class="card-body">
-
                         <div class="row">
-
                             <!-- DELIVERY -->
                             <div class="col-md-8">
-
-                                <h6 class="text-muted">
-                                    Delivery to
-                                </h6>
-
-                                <p class="mb-0">
-
+                                <h6 class="text-muted section-title">Delivery to</h6>
+                                <p class="delivery-info mb-0">
                                     <strong>
                                         Michael Jackson
                                     </strong>
-
                                     <br>
-
-                                    <i class="fa fa-phone mr-1 text-muted"></i>
+                                    <i class="fa fa-phone mr-1"></i>
                                     Phone: +1234567890
-
                                     <br>
-
-                                    <i class="fa fa-envelope mr-1 text-muted"></i>
+                                    <i class="fa fa-envelope mr-1"></i>
                                     Email: myname@pixsellz.com
-
                                     <br>
-
-                                    <i class="fa fa-map-marker-alt mr-1 text-muted"></i>
+                                    <i class="fa fa-map-marker-alt mr-1"></i>
                                     Location: Home number, Building name,
                                     Street 123, Tashkent, UZB
-
                                     <br>
-
-                                    <i class="fa fa-mail-bulk mr-1 text-muted"></i>
+                                    <i class="fa fa-mail-bulk mr-1"></i>
                                     P.O. Box: 100123
-
                                 </p>
-
                             </div>
-
 
                             <!-- PAYMENT -->
                             <div class="col-md-4">
-
-                                <h6 class="text-muted">
+                                <h6 class="text-muted section-title">
                                     Payment
                                 </h6>
-
-                                <span class="text-success">
-
-                                    <i class="fab fa-lg fa-cc-visa"></i>
-
-                                    Visa **** 4216
-
-                                </span>
-
-                                <p class="mt-2 mb-0">
-
-                                    Subtotal: ₹356
-
-                                    <br>
-
-                                    Shipping fee: ₹56
-
-                                    <br>
-
-                                    <strong>
-                                        Total: ₹456
-                                    </strong>
-
-                                </p>
-
+                                <div class="payment-method">
+                                    <span class="text-success">
+                                        <i class="fab fa-lg fa-cc-visa"></i>
+                                        Visa **** 4216
+                                    </span>
+                                </div>
+                                <div class="payment-summary">
+                                    <div class="payment-row">
+                                        <span>Subtotal</span>
+                                        <span>₹356</span>
+                                    </div>
+                                    <div class="payment-row">
+                                        <span>Shipping fee</span>
+                                        <span>₹56</span>
+                                    </div>
+                                    <div class="payment-row total">
+                                        <strong>Total</strong>
+                                        <strong>₹456</strong>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
-
                     </div>
                     <!-- ORDER INFORMATION END -->
 
 
                     <!-- ========================= ORDER ITEMS ========================= -->
                     <div class="table-responsive">
-
-                        <table class="table table-hover mb-0">
-
-                            <!-- PRODUCT 1 -->
-                            <tr>
-
-                                <td width="65">
-
-                                    <img src="{% static 'images/items/1.jpg' %}" class="img-xs border" alt="Product">
-
-                                </td>
-
-                                <td>
-
-                                    <p class="title mb-0">
-                                        Product name goes here
-                                    </p>
-
-                                    <var class="price text-muted">
-                                        ₹145
-                                    </var>
-
-                                </td>
-
-                                <td>
-
-                                    <small class="text-muted">
-                                        Seller
-                                    </small>
-
-                                    <br>
-
-                                    Nike clothing
-
-                                </td>
-
-                                <td width="250">
-
-                                    <a href="#" class="btn btn-outline-primary btn-sm">
-
-                                        Track order
-
-                                    </a>
-
-                                    <a href="#" class="btn btn-light btn-sm">
-
-                                        Details
-
-                                    </a>
-
-                                </td>
-
-                            </tr>
-
-
-                            <!-- PRODUCT 2 -->
-                            <tr>
-
-                                <td>
-
-                                    <img src="{% static 'images/items/2.jpg' %}" class="img-xs border" alt="Product">
-
-                                </td>
-
-                                <td>
-
-                                    <p class="title mb-0">
-                                        Another name goes here
-                                    </p>
-
-                                    <var class="price text-muted">
-                                        ₹15
-                                    </var>
-
-                                </td>
-
-                                <td>
-
-                                    <small class="text-muted">
-                                        Seller
-                                    </small>
-
-                                    <br>
-
-                                    ABC shop
-
-                                </td>
-
-                                <td>
-
-                                    <a href="#" class="btn btn-outline-primary btn-sm">
-
-                                        Track order
-
-                                    </a>
-
-                                    <a href="#" class="btn btn-light btn-sm">
-
-                                        Details
-
-                                    </a>
-
-                                </td>
-
-                            </tr>
-
-
-                            <!-- PRODUCT 3 -->
-                            <tr>
-
-                                <td>
-
-                                    <img src="{% static 'images/items/3.jpg' %}" class="img-xs border" alt="Product">
-
-                                </td>
-
-                                <td>
-
-                                    <p class="title mb-0">
-                                        The name of the product goes here
-                                    </p>
-
-                                    <var class="price text-muted">
-                                        ₹145
-                                    </var>
-
-                                </td>
-
-                                <td>
-
-                                    <small class="text-muted">
-                                        Seller
-                                    </small>
-
-                                    <br>
-
-                                    Wallmart
-
-                                </td>
-
-                                <td>
-
-                                    <a href="#" class="btn btn-outline-primary btn-sm">
-
-                                        Track order
-
-                                    </a>
-
-                                    <a href="#" class="btn btn-light btn-sm">
-
-                                        Details
-
-                                    </a>
-
-                                </td>
-
-                            </tr>
-
+                        <table class="table table-hover order-items">
+                            <tbody>
+                                <!-- PRODUCT 1 -->
+                                <tr>
+                                    <td class="product-image-cell" width="80">
+                                        <img src="{% static 'images/items/1.jpg' %}" class="img-xs border"
+                                            alt="Product">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-1">Product name goes here</p>
+                                        <var class="price text-muted">₹145</var>
+                                    </td>
+                                    <td class="seller-cell">
+                                        <small class="text-muted">Seller</small>
+                                        <br>
+                                        Nike clothing
+                                    </td>
+                                    <td class="action-cell" width="250">
+                                        <a href="#" class="btn btn-outline-primary btn-sm">Track order</a>
+                                        <a href="#" class="btn btn-light btn-sm">Details</a>
+                                    </td>
+                                </tr>
+
+                                <!-- PRODUCT 2 -->
+                                <tr>
+                                    <td class="product-image-cell">
+                                        <img src="{% static 'images/items/2.jpg' %}" class="img-xs border"
+                                            alt="Product">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-1">Another name goes here</p>
+                                        <var class="price text-muted">₹15</var>
+                                    </td>
+                                    <td class="seller-cell">
+                                        <small class="text-muted">Seller</small>
+                                        <br>
+                                        ABC shop
+                                    </td>
+                                    <td class="action-cell">
+                                        <a href="#" class="btn btn-outline-primary btn-sm">Track order</a>
+                                        <a href="#" class="btn btn-light btn-sm">Details</a>
+                                    </td>
+                                </tr>
+                                <!-- PRODUCT 3 -->
+                                <tr>
+                                    <td class="product-image-cell">
+                                        <img src="{% static 'images/items/3.jpg' %}" class="img-xs border"
+                                            alt="Product">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-1">The name of the product goes here</p>
+                                        <var class="price text-muted">₹145</var>
+                                    </td>
+                                    <td class="seller-cell">
+                                        <small class="text-muted">Seller</small>
+                                        <br>
+                                        Wallmart
+                                    </td>
+                                    <td class="action-cell">
+                                        <a href="#" class="btn btn-outline-primary btn-sm">Track order</a>
+                                        <a href="#" class="btn btn-light btn-sm">Details</a>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
-
                     </div>
                     <!-- ORDER ITEMS END -->
 
@@ -336,85 +198,61 @@
                 <!-- ORDER CARD END -->
 
 
-                <!-- ========================= ADDITIONAL ACCOUNT BOX ========================= -->
-
-                <div class="row mt-4">
-
+                <!-- ========================= ACCOUNT SUMMARY ========================= -->
+                <div class="row dashboard-summary">
+                    <!-- TOTAL ORDERS -->
                     <div class="col-md-4 mb-3">
-
-                        <div class="card">
-
+                        <div class="card summary-card">
                             <div class="card-body">
-
-                                <h6 class="card-title">
-                                    <i class="fa fa-shopping-bag text-primary mr-2"></i>
-                                    Total Orders
-                                </h6>
-
-                                <h4 class="mb-0">
-                                    12
-                                </h4>
-
+                                <div class="summary-icon">
+                                    <i class="fa fa-shopping-bag"></i>
+                                </div>
+                                <div class="summary-content">
+                                    <h6 class="text-muted">Total Orders</h6>
+                                    <h4>12</h4>
+                                </div>
                             </div>
-
                         </div>
-
                     </div>
 
 
+                    <!-- DELIVERED -->
                     <div class="col-md-4 mb-3">
-
-                        <div class="card">
-
+                        <div class="card summary-card">
                             <div class="card-body">
+                                <div class="summary-icon success">
+                                    <i class="fa fa-check-circle"></i>
+                                </div>
 
-                                <h6 class="card-title">
-                                    <i class="fa fa-check-circle text-success mr-2"></i>
-                                    Delivered
-                                </h6>
-
-                                <h4 class="mb-0">
-                                    8
-                                </h4>
-
+                                <div class="summary-content">
+                                    <h6 class="text-muted">Delivered</h6>
+                                    <h4>8</h4>
+                                </div>
                             </div>
-
                         </div>
-
                     </div>
 
-
+                    <!-- IN TRANSIT -->
                     <div class="col-md-4 mb-3">
-
-                        <div class="card">
-
+                        <div class="card summary-card">
                             <div class="card-body">
+                                <div class="summary-icon warning">
+                                    <i class="fa fa-truck"></i>
+                                </div>
 
-                                <h6 class="card-title">
-                                    <i class="fa fa-truck text-warning mr-2"></i>
-                                    In Transit
-                                </h6>
-
-                                <h4 class="mb-0">
-                                    3
-                                </h4>
-
+                                <div class="summary-content">
+                                    <h6 class="text-muted">In Transit</h6>
+                                    <h4>3</h4>
+                                </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
+                <!-- ACCOUNT SUMMARY END -->
             </main>
             <!-- ========================= MAIN CONTENT END ========================= -->
-
         </div>
-
     </div>
-    ```
-
 </section>
 <!-- ========================= SECTION CONTENT END // ========================= -->
 
